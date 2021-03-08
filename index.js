@@ -1,7 +1,18 @@
 var Twit = require('twit');
 const fs = require('fs')
 
-const config = require('./config')
+var config;
+
+try {
+    config = require('./config');
+} catch {
+    config = {
+        consumer_key: process.env.consumer_key,
+        consumer_secret: process.env.consumer_secret,
+        access_token: process.env.access_token,
+        access_token_secret: process.env.access_token_secret,
+    };
+}
 
 var T = new Twit({
     consumer_key: config.consumer_key,
@@ -29,7 +40,7 @@ function onTweet(tweet) {
             responseGif = helloOne;
     }
     console.log('uploading gif')
-    T.post('media/upload', { media_data: responseGif }, function(err, data, response) {
+    T.post('media/upload', { media_data: responseGif }, function (err, data, response) {
         if (err) {
             console.log(err)
         }
@@ -37,7 +48,7 @@ function onTweet(tweet) {
         var altText = "Pottermus greeting gif"
         var meta_params = {
             media_id: mediaID,
-            alt_text: { text: altText}
+            alt_text: { text: altText }
         }
 
         console.log('Setting gif metadata')
@@ -53,7 +64,7 @@ function onTweet(tweet) {
                 console.log(reply_params)
 
                 console.log('sending response')
-                T.post('statuses/update', reply_params, function(err, data, response) { 
+                T.post('statuses/update', reply_params, function (err, data, response) {
                     if (err) {
                         console.log(err)
                     } else {
@@ -76,3 +87,5 @@ var stream = T.stream('statuses/filter', { track: '@bottermus' }, (err, reply) =
 });
 
 stream.on('tweet', onTweet)
+
+console.log('Running')
