@@ -1,6 +1,14 @@
 var Twit = require('twit');
 const fs = require('fs')
 
+const express = require("express")
+const app = express();
+const port = process.env.port || 4012
+
+app.get('/', (req, res) => {
+    res.send("Hello, but you're somewhere you're not meant to be, so goodbye")
+});
+
 var config;
 
 try {
@@ -89,3 +97,7 @@ var stream = T.stream('statuses/filter', { track: '@bottermus' }, (err, reply) =
 stream.on('tweet', onTweet)
 
 console.log('Running')
+
+app.listen(port, () => {
+    console.log(`listening on port: ${port}`)
+})

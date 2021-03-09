@@ -10,6 +10,7 @@
   "author": "Adam Barr",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "twit": "^2.2.11"
   }
 }
