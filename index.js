@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const express = require("express")
 const app = express();
-const port = process.env.port || 4012
+const port = process.env.PORT || 4012
 
 app.get('/', (req, res) => {
     res.send("Hello, but you're somewhere you're not meant to be, so goodbye")
