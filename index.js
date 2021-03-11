@@ -32,11 +32,15 @@ var T = new Twit({
 
 const stokeID = '44335177';
 //const stokeID = '1353088861115740161';
+var playerIDs = ['1104054431455285248', '60405865', '148418812', '1146246312', '3341648117', '1203375180359311360', '141316422', '1245046966763098118', '874778624553078784', '1230247777898242058', '186528861', '1181645582202527744', '2562338819', '2878235547', '578375905']
 // ON MENTION
 const onMention = require('./StreamFunctions/Mention');
 const onStokeTweet = require('./StreamFunctions/StokeAccountTweet');
+const onPlayerTweet = require('./StreamFunctions/PlayerTweet')
 
-var stream = T.stream('statuses/filter', { track: ['@bottermus'], follow: [stokeID] }, (err, reply) => {
+var ids = playerIDs.concat(stokeID)
+
+var stream = T.stream('statuses/filter', { track: ['@bottermus'], follow: [ids] }, (err, reply) => {
     if (err) {
         console.error(err)
     } else {
@@ -47,8 +51,10 @@ var stream = T.stream('statuses/filter', { track: ['@bottermus'], follow: [stoke
 stream.on('tweet', (tweet) => {
     if (tweet.in_reply_to_status_id === null && tweet.text.includes('@bottermus')) {
         onMention(tweet, T)
-    } else if (tweet.in_reply_to_status_id === null && tweet.user.id_str === stokeID){
+    } else if (tweet.in_reply_to_status_id === null && tweet.user.id_str === stokeID && tweet.retweeted_status === undefined){
         onStokeTweet(tweet, T)
+    } else if (playerIDs.includes(tweet.user.id_str) && tweet.in_reply_to_status_id === null && tweet.retweeted_status === undefined) {
+        onPlayerTweet(tweet, T)
     }
 })
 
