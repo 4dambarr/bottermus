@@ -8,3 +8,5 @@ function onChampionshipTweet(tweet, T) {
     });
   }
 }
+
+export default onChampionshipTweet

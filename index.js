@@ -36,7 +36,8 @@ var championshipID = '448391206'
 
 const onMention = require('./StreamFunctions/Mention');
 const onStokeTweet = require('./StreamFunctions/StokeAccountTweet');
-const onPlayerTweet = require('./StreamFunctions/PlayerTweet')
+const onPlayerTweet = require('./StreamFunctions/PlayerTweet');
+const { default: onChampionshipTweet } = require('./StreamFunctions/ChampionshipTweet');
 
 var ids = [stokeID, championshipID, ...playerIDs]
 
@@ -55,6 +56,8 @@ stream.on('tweet', (tweet) => {
         onStokeTweet(tweet, T)
     } else if (playerIDs.includes(tweet.user.id_str) && tweet.in_reply_to_status_id === null && tweet.retweeted_status === undefined) {
         onPlayerTweet(tweet, T)
+    } else if (tweet.in_reply_to_status_id === null && tweet.user.id_str === championshipID && tweet.retweeted_status === undefined){
+        onChampionshipTweet(tweet, T)
     }
 })
 
