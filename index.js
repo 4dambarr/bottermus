@@ -1,4 +1,3 @@
-  
 var Twit = require('twit');
 const fs = require('fs')
 
@@ -33,12 +32,13 @@ var T = new Twit({
 const stokeID = '44335177';
 //const stokeID = '1353088861115740161';
 var playerIDs = ['1104054431455285248', '60405865', '148418812', '1146246312', '3341648117', '1203375180359311360', '141316422', '1245046966763098118', '874778624553078784', '1230247777898242058', '186528861', '1181645582202527744', '2562338819', '2878235547', '578375905']
-// ON MENTION
+var championshipID = '448391206'
+
 const onMention = require('./StreamFunctions/Mention');
 const onStokeTweet = require('./StreamFunctions/StokeAccountTweet');
 const onPlayerTweet = require('./StreamFunctions/PlayerTweet')
 
-var ids = playerIDs.concat(stokeID)
+var ids = [stokeID, championshipID, ...playerIDs]
 
 var stream = T.stream('statuses/filter', { track: ['@bottermus'], follow: [ids] }, (err, reply) => {
     if (err) {
