@@ -56,7 +56,6 @@ async function onStokeTweet(tweet, T) {
     replyToSquad(tweet, T)
   }
 
-  /*
   T.post('/statuses/retweet/:id', { id: tweet.id_str }, function (err, data, response) {
     if (err) {
       console.log(err);
