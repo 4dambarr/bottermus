@@ -37,7 +37,7 @@ var championshipID = '448391206'
 const onMention = require('./StreamFunctions/Mention');
 const onStokeTweet = require('./StreamFunctions/StokeAccountTweet');
 const onPlayerTweet = require('./StreamFunctions/PlayerTweet');
-const { default: onChampionshipTweet } = require('./StreamFunctions/ChampionshipTweet');
+const onChampionshipTweet = require('./StreamFunctions/ChampionshipTweet');
 
 var ids = [stokeID, championshipID, ...playerIDs]
 
