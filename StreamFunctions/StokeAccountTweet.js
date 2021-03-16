@@ -10,7 +10,7 @@ function isSquad(text) {
   return false
 }
 
-const squadGif = fs.readFileSync('media/throwAwayComputer.gif', { encoding: 'base64' })
+const squadGif = fs.readFileSync('media/tyreseHype.gif', { encoding: 'base64' })
 
 function replyToSquad(tweet, T) {
   T.post('media/upload', { media_data: squadGif }, function (err, data, response) {
@@ -18,7 +18,7 @@ function replyToSquad(tweet, T) {
           console.log(err)
       }
       var mediaID = data.media_id_string
-      var altText = "Throwing computer in bin"
+      var altText = "Tyrese Campbell hyping up the crowd"
       var meta_params = {
           media_id: mediaID,
           alt_text: { text: altText }
@@ -29,7 +29,7 @@ function replyToSquad(tweet, T) {
           if (!err) {
               var reply_params = {
                   in_reply_to_status_id: tweet.id_str,
-                  status: `Unfortunately this bot isn't clever enough to read the squad yet, but I'm just going to assume Mikel is in the squad and reply with this gif`,
+                  status: `This bot still can't read the team sheet, and Mikel seems like a nice guy so I'm not going to dunk on him again for no reason, instead I'll just assume Tyrese hasn't made a shock recovery and reply with this gif cause I really miss him 😢`,
                   auto_populate_reply_metadata: true,
                   media_ids: [mediaID]
               }
