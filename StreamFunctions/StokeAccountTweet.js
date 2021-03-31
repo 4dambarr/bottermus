@@ -52,9 +52,11 @@ function replyToSquad(tweet, T) {
 async function onStokeTweet(tweet, T) {
   var lowerText = tweet.text.toLowerCase();
   
+  /*
   if (await isSquad(lowerText)) {
     replyToSquad(tweet, T)
   }
+  */
 
   T.post('/statuses/retweet/:id', { id: tweet.id_str }, function (err, data, response) {
     if (err) {
